@@ -1,11 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://vs2r2krrllqf"]
+[gd_scene load_steps=16 format=3 uid="uid://vs2r2krrllqf"]
 
+[ext_resource type="Script" uid="uid://qxvw44epevbi" path="res://scripts/game.gd" id="1_gee14"]
 [ext_resource type="Texture2D" uid="uid://2bn30fqno8m4" path="res://art/visual/wall.png" id="1_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://sk5m3ogkw2t3" path="res://art/visual/stand.png" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cur88mmradbgp" path="res://art/visual/merchant-angry.png" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bnpgey5pejjje" path="res://art/visual/merchant.png" id="3_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://dk4seqwbkwvfn" path="res://art/visual/merchant-happy.png" id="5_p57ef"]
 [ext_resource type="Texture2D" uid="uid://dkoe0tup6qkmp" path="res://art/visual/cup.png" id="6_u5sy4"]
+[ext_resource type="Script" uid="uid://c4lhik432mhrf" path="res://scripts/pieces.gd" id="7_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bvf8yluaxx128" path="res://art/visual/ball.png" id="7_gee14"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5sy4"]
@@ -60,13 +62,18 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0tnpc"]
+size = Vector2(18, 22)
+
 [node name="Game" type="Node2D"]
+script = ExtResource("1_gee14")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 640.0
 offset_bottom = 360.0
+mouse_filter = 2
 
 [node name="Background" type="TextureRect" parent="Control"]
 z_index = -1
@@ -130,6 +137,7 @@ sprite_frames = SubResource("SpriteFrames_lbhrr")
 autoplay = "angry"
 
 [node name="Pieces" type="Node2D" parent="."]
+script = ExtResource("7_0tnpc")
 
 [node name="Position1" type="Marker2D" parent="Pieces"]
 position = Vector2(155, 263)
@@ -140,20 +148,47 @@ position = Vector2(331, 291)
 [node name="Position3" type="Marker2D" parent="Pieces"]
 position = Vector2(531, 255)
 
-[node name="Cup1" type="Sprite2D" parent="Pieces"]
+[node name="Cup1" type="Area2D" parent="Pieces"]
 z_index = 4
 scale = Vector2(4, 4)
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="Pieces/Cup1"]
+position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
 
-[node name="Cup2" type="Sprite2D" parent="Pieces"]
+[node name="Collision" type="CollisionShape2D" parent="Pieces/Cup1"]
+position = Vector2(-1, -4)
+shape = SubResource("RectangleShape2D_0tnpc")
+
+[node name="Cup2" type="Area2D" parent="Pieces"]
 z_index = 4
 scale = Vector2(4, 4)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="Sprite2D" parent="Pieces/Cup2"]
+position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
 
-[node name="Cup3" type="Sprite2D" parent="Pieces"]
+[node name="Collision" type="CollisionShape2D" parent="Pieces/Cup2"]
+position = Vector2(-1, -4)
+shape = SubResource("RectangleShape2D_0tnpc")
+
+[node name="Cup3" type="Area2D" parent="Pieces"]
 z_index = 4
 scale = Vector2(4, 4)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Sprite" type="Sprite2D" parent="Pieces/Cup3"]
+position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
+
+[node name="Collision" type="CollisionShape2D" parent="Pieces/Cup3"]
+position = Vector2(-1, -4)
+shape = SubResource("RectangleShape2D_0tnpc")
 
 [node name="Ball" type="Sprite2D" parent="Pieces"]
 z_index = 3
