@@ -1,3 +1,161 @@
-[gd_scene format=3 uid="uid://vs2r2krrllqf"]
+[gd_scene load_steps=13 format=3 uid="uid://vs2r2krrllqf"]
+
+[ext_resource type="Texture2D" uid="uid://2bn30fqno8m4" path="res://art/visual/wall.png" id="1_yqjtg"]
+[ext_resource type="Texture2D" uid="uid://sk5m3ogkw2t3" path="res://art/visual/stand.png" id="2_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://cur88mmradbgp" path="res://art/visual/merchant-angry.png" id="3_iywne"]
+[ext_resource type="Texture2D" uid="uid://bnpgey5pejjje" path="res://art/visual/merchant.png" id="3_lnu2h"]
+[ext_resource type="Texture2D" uid="uid://dk4seqwbkwvfn" path="res://art/visual/merchant-happy.png" id="5_p57ef"]
+[ext_resource type="Texture2D" uid="uid://dkoe0tup6qkmp" path="res://art/visual/cup.png" id="6_u5sy4"]
+[ext_resource type="Texture2D" uid="uid://bvf8yluaxx128" path="res://art/visual/ball.png" id="7_gee14"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u5sy4"]
+atlas = ExtResource("5_p57ef")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gee14"]
+atlas = ExtResource("5_p57ef")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tnpc"]
+atlas = ExtResource("5_p57ef")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtaks"]
+atlas = ExtResource("5_p57ef")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lbhrr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_iywne")
+}],
+"loop": false,
+"name": &"angry",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_lnu2h")
+}],
+"loop": false,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u5sy4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gee14")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tnpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
+}],
+"loop": false,
+"name": &"happy",
+"speed": 4.0
+}]
 
 [node name="Game" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="Background" type="TextureRect" parent="Control"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqjtg")
+
+[node name="Foreground" type="TextureRect" parent="Control"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_lnu2h")
+
+[node name="Talking" type="ColorRect" parent="Control"]
+visible = false
+z_index = 2
+layout_mode = 0
+offset_left = 67.0
+offset_top = 236.0
+offset_right = 575.0
+offset_bottom = 321.0
+color = Color(0.340339, 0.340339, 0.340339, 1)
+
+[node name="Margin" type="MarginContainer" parent="Control/Talking"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Talking/Margin"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Talking/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "So, do you wanna play this little game of mine?"
+
+[node name="Button" type="Button" parent="Control/Talking/Margin/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "  I need the money  "
+
+[node name="Merchant" type="AnimatedSprite2D" parent="."]
+position = Vector2(320, 128)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_lbhrr")
+autoplay = "angry"
+
+[node name="Pieces" type="Node2D" parent="."]
+
+[node name="Position1" type="Marker2D" parent="Pieces"]
+position = Vector2(155, 263)
+
+[node name="Position2" type="Marker2D" parent="Pieces"]
+position = Vector2(331, 291)
+
+[node name="Position3" type="Marker2D" parent="Pieces"]
+position = Vector2(531, 255)
+
+[node name="Cup1" type="Sprite2D" parent="Pieces"]
+z_index = 4
+scale = Vector2(4, 4)
+texture = ExtResource("6_u5sy4")
+
+[node name="Cup2" type="Sprite2D" parent="Pieces"]
+z_index = 4
+scale = Vector2(4, 4)
+texture = ExtResource("6_u5sy4")
+
+[node name="Cup3" type="Sprite2D" parent="Pieces"]
+z_index = 4
+scale = Vector2(4, 4)
+texture = ExtResource("6_u5sy4")
+
+[node name="Ball" type="Sprite2D" parent="Pieces"]
+z_index = 3
+scale = Vector2(4, 4)
+texture = ExtResource("7_gee14")
