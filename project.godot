@@ -13,7 +13,11 @@ config_version=5
 config/name="One More Ball"
 run/main_scene="uid://vs2r2krrllqf"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dkoe0tup6qkmp"
+
+[autoload]
+
+Global="*res://scripts/global.gd"
 
 [display]
 
