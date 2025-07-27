@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://vs2r2krrllqf"]
+[gd_scene load_steps=19 format=3 uid="uid://vs2r2krrllqf"]
 
 [ext_resource type="Script" uid="uid://qxvw44epevbi" path="res://scripts/game.gd" id="1_gee14"]
 [ext_resource type="Texture2D" uid="uid://2bn30fqno8m4" path="res://art/visual/wall.png" id="1_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://sk5m3ogkw2t3" path="res://art/visual/stand.png" id="2_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cur88mmradbgp" path="res://art/visual/merchant-angry.png" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bnpgey5pejjje" path="res://art/visual/merchant.png" id="3_lnu2h"]
+[ext_resource type="Script" uid="uid://dltgxn84edy1a" path="res://scripts/talking.gd" id="4_vtaks"]
 [ext_resource type="Texture2D" uid="uid://dk4seqwbkwvfn" path="res://art/visual/merchant-happy.png" id="5_p57ef"]
 [ext_resource type="Texture2D" uid="uid://dkoe0tup6qkmp" path="res://art/visual/cup.png" id="6_u5sy4"]
 [ext_resource type="Script" uid="uid://c4lhik432mhrf" path="res://scripts/pieces.gd" id="7_0tnpc"]
@@ -65,13 +66,12 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0tnpc"]
 size = Vector2(18, 22)
 
+[sub_resource type="Curve2D" id="Curve2D_vtaks"]
+
+[sub_resource type="Curve2D" id="Curve2D_kvpfn"]
+
 [node name="Game" type="Node2D"]
 script = ExtResource("1_gee14")
-
-[node name="RoundTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-autostart = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -88,6 +88,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("1_yqjtg")
 
 [node name="Foreground" type="TextureRect" parent="Control"]
@@ -98,17 +99,33 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = ExtResource("2_lnu2h")
 
-[node name="Talking" type="ColorRect" parent="Control"]
-visible = false
+[node name="Effect" type="ColorRect" parent="Control"]
 z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0)
+
+[node name="Talking" type="ColorRect" parent="Control"]
+z_index = 5
 layout_mode = 0
 offset_left = 67.0
 offset_top = 236.0
 offset_right = 575.0
 offset_bottom = 321.0
 color = Color(0.340339, 0.340339, 0.340339, 1)
+script = ExtResource("4_vtaks")
+
+[node name="Timer" type="Timer" parent="Control/Talking"]
+wait_time = 0.05
+one_shot = true
 
 [node name="Margin" type="MarginContainer" parent="Control/Talking"]
 layout_mode = 1
@@ -117,33 +134,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/Talking/Margin"]
+[node name="Dialog" type="RichTextLabel" parent="Control/Talking/Margin"]
 layout_mode = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/Talking/Margin/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-text = "So, do you wanna play this little game of mine?"
-
-[node name="Button" type="Button" parent="Control/Talking/Margin/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "  I need the money  "
+mouse_filter = 2
 
 [node name="Merchant" type="AnimatedSprite2D" parent="."]
 position = Vector2(320, 128)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_lbhrr")
-animation = &"happy"
-autoplay = "angry"
+autoplay = "default"
 
 [node name="Pieces" type="Node2D" parent="."]
 script = ExtResource("7_0tnpc")
+
+[node name="Timer" type="Timer" parent="Pieces"]
+one_shot = true
 
 [node name="Position1" type="Marker2D" parent="Pieces"]
 position = Vector2(155, 263)
@@ -155,50 +166,67 @@ position = Vector2(331, 291)
 position = Vector2(531, 255)
 
 [node name="Cup1" type="Area2D" parent="Pieces"]
-z_index = 4
 scale = Vector2(4, 4)
 metadata/_edit_lock_ = true
 metadata/_edit_group_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Pieces/Cup1"]
+z_index = 3
 position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
 
 [node name="Collision" type="CollisionShape2D" parent="Pieces/Cup1"]
+z_index = 3
 position = Vector2(-1, -4)
 shape = SubResource("RectangleShape2D_0tnpc")
 
 [node name="Cup2" type="Area2D" parent="Pieces"]
-z_index = 4
 scale = Vector2(4, 4)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Pieces/Cup2"]
+z_index = 3
 position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
 
 [node name="Collision" type="CollisionShape2D" parent="Pieces/Cup2"]
+z_index = 3
 position = Vector2(-1, -4)
 shape = SubResource("RectangleShape2D_0tnpc")
 
 [node name="Cup3" type="Area2D" parent="Pieces"]
-z_index = 4
 scale = Vector2(4, 4)
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
 [node name="Sprite" type="Sprite2D" parent="Pieces/Cup3"]
+z_index = 3
 position = Vector2(2, -6)
 texture = ExtResource("6_u5sy4")
 
 [node name="Collision" type="CollisionShape2D" parent="Pieces/Cup3"]
+z_index = 3
 position = Vector2(-1, -4)
 shape = SubResource("RectangleShape2D_0tnpc")
 
 [node name="Ball" type="Sprite2D" parent="Pieces"]
-z_index = 3
+z_index = 2
 scale = Vector2(4, 4)
 texture = ExtResource("7_gee14")
 
-[connection signal="timeout" from="RoundTimer" to="." method="start_next_round"]
+[node name="Path1" type="Path2D" parent="Pieces"]
+z_index = 10
+curve = SubResource("Curve2D_vtaks")
+
+[node name="PathFollower" type="PathFollow2D" parent="Pieces/Path1"]
+rotates = false
+loop = false
+
+[node name="Path2" type="Path2D" parent="Pieces"]
+z_index = 10
+curve = SubResource("Curve2D_kvpfn")
+
+[node name="PathFollower" type="PathFollow2D" parent="Pieces/Path2"]
+rotates = false
+loop = false
