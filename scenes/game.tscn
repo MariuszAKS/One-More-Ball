@@ -102,8 +102,9 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("2_lnu2h")
 
-[node name="Effect" type="ColorRect" parent="Control"]
-z_index = 2
+[node name="Ending" type="ColorRect" parent="Control"]
+visible = false
+z_index = 5
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,9 +112,32 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0)
+color = Color(0.443137, 0.443137, 0.443137, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Control/Ending"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Ending/CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/Ending/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "You run away from the merchant.
+Your score: 0"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Control/Ending/CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Back to Menu"
 
 [node name="Talking" type="ColorRect" parent="Control"]
+visible = false
 z_index = 5
 layout_mode = 0
 offset_left = 67.0
@@ -143,6 +167,17 @@ theme_override_constants/margin_bottom = 8
 [node name="Dialog" type="RichTextLabel" parent="Control/Talking/Margin"]
 layout_mode = 2
 mouse_filter = 2
+
+[node name="Button" type="Button" parent="Control"]
+z_index = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 153.0
+grow_vertical = 0
+text = "  Run Away "
 
 [node name="Merchant" type="AnimatedSprite2D" parent="."]
 position = Vector2(320, 128)

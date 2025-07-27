@@ -31,7 +31,7 @@ var game: Game
 var cup_with_ball: int
 
 var cups_mixed_count: int
-var cups_mixed_max_count = 6
+var cups_mixed_max_count = 10
 
 var cups_moving = false
 
