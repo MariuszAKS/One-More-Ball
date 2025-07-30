@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="One More Ball"
-run/main_scene="uid://vs2r2krrllqf"
+run/main_scene="uid://c3r4jgwbp478i"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://dkoe0tup6qkmp"
 
 [display]
 
