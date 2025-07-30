@@ -8,6 +8,7 @@ signal begin_round
 @onready var talking: Talking = get_node("Control/Talking")
 @onready var pieces: Pieces = get_node("Pieces")
 
+@onready var audio: AudioStreamPlayer2D = get_node("Audio")
 @onready var ending: ColorRect = get_node("Control/Ending")
 @onready var run_button: Button = get_node("Control/Button")
 
@@ -25,7 +26,7 @@ var intro_texts = [
 
 var current_round = 0
 var winnings = 0
-var price = 1000
+var price = 100
 
 var speed_multiplier = 1.0
 
@@ -39,6 +40,7 @@ func _ready():
 	talking.start_writing_text(intro_texts[0])
 
 	ending.get_child(0).get_child(0).get_node("Button").pressed.connect(go_to_menu)
+	audio.finished.connect(go_to_menu)
 	run_button.pressed.connect(on_ending)
 
 
@@ -56,11 +58,12 @@ func intro_sequence():
 func start_next_round():
 	merchant.play("default")
 	current_round += 1
-	speed_multiplier *= 1.5
+	speed_multiplier *= 1.3
 
 	begin_round.emit()
 
 func on_ending():
+	talking.hide()
 	ending.show()
 	var label: Label = ending.get_child(0).get_child(0).get_node("Label")
 
@@ -79,10 +82,11 @@ func on_correct_choice():
 	winnings = price
 	price *= 2
 
-	talking.start_writing_text("You're good. Double or nothing?\nYou can win " + str(price) + "!")
+	talking.start_writing_text("Congrats. Double or nothing?\nI'll give you " + str(price) + "!")
 
 func on_wrong_choice():
 	merchant.play("happy")
+	audio.play()
 
 	winnings = -666
 	price = -666

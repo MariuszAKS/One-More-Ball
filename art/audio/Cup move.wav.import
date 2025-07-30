@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://kdq4gsg4mjv6"
+path="res://.godot/imported/Cup move.wav-232aced4b75843fc1d2ec9c7c45555dc.sample"
+
+[deps]
+
+source_file="res://art/audio/Cup move.wav"
+dest_files=["res://.godot/imported/Cup move.wav-232aced4b75843fc1d2ec9c7c45555dc.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

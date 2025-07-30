@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://vs2r2krrllqf"]
+[gd_scene load_steps=22 format=3 uid="uid://vs2r2krrllqf"]
 
 [ext_resource type="Script" uid="uid://qxvw44epevbi" path="res://scripts/game.gd" id="1_gee14"]
 [ext_resource type="Texture2D" uid="uid://2bn30fqno8m4" path="res://art/visual/wall.png" id="1_yqjtg"]
@@ -6,10 +6,13 @@
 [ext_resource type="Texture2D" uid="uid://cur88mmradbgp" path="res://art/visual/merchant-angry.png" id="3_iywne"]
 [ext_resource type="Texture2D" uid="uid://bnpgey5pejjje" path="res://art/visual/merchant.png" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://dltgxn84edy1a" path="res://scripts/talking.gd" id="4_vtaks"]
+[ext_resource type="AudioStream" uid="uid://df8dqviycxkwo" path="res://art/audio/Talk.wav" id="5_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://dk4seqwbkwvfn" path="res://art/visual/merchant-happy.png" id="5_p57ef"]
 [ext_resource type="Texture2D" uid="uid://dkoe0tup6qkmp" path="res://art/visual/cup.png" id="6_u5sy4"]
 [ext_resource type="Script" uid="uid://c4lhik432mhrf" path="res://scripts/pieces.gd" id="7_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://bvf8yluaxx128" path="res://art/visual/ball.png" id="7_gee14"]
+[ext_resource type="AudioStream" uid="uid://dnq4jyup76h3k" path="res://art/audio/Ending.wav" id="9_kvuet"]
+[ext_resource type="AudioStream" uid="uid://kdq4gsg4mjv6" path="res://art/audio/Cup move.wav" id="10_dinhu"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u5sy4"]
 atlas = ExtResource("5_p57ef")
@@ -54,6 +57,12 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_0tnpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtaks")
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_vtaks")
@@ -151,6 +160,9 @@ script = ExtResource("4_vtaks")
 wait_time = 0.05
 one_shot = true
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="Control/Talking"]
+stream = ExtResource("5_kvpfn")
+
 [node name="Margin" type="MarginContainer" parent="Control/Talking"]
 layout_mode = 1
 anchors_preset = 15
@@ -179,10 +191,14 @@ offset_right = 153.0
 grow_vertical = 0
 text = "  Run Away "
 
+[node name="Audio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_kvuet")
+
 [node name="Merchant" type="AnimatedSprite2D" parent="."]
 position = Vector2(320, 128)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_lbhrr")
+animation = &"happy"
 autoplay = "default"
 
 [node name="Pieces" type="Node2D" parent="."]
@@ -190,6 +206,10 @@ script = ExtResource("7_0tnpc")
 
 [node name="Timer" type="Timer" parent="Pieces"]
 one_shot = true
+
+[node name="Audio" type="AudioStreamPlayer2D" parent="Pieces"]
+stream = ExtResource("10_dinhu")
+volume_db = -8.0
 
 [node name="Position1" type="Marker2D" parent="Pieces"]
 position = Vector2(155, 263)

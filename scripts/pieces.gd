@@ -7,6 +7,7 @@ signal wrong_choice
 
 var game: Game
 
+@onready var audio: AudioStreamPlayer2D = get_node("Audio")
 @onready var timer: Timer = get_node("Timer")
 @onready var ball: Sprite2D = get_node("Ball")
 @onready var markers: Array[Marker2D] = [
@@ -66,6 +67,7 @@ func _process(delta: float):
 
 func start_moving_cups():
 	set_cups_on_paths(get_random_cup_ids())
+	audio.play()
 	cups_moving = true
 
 func move_cups(delta: float):
